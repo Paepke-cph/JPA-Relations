@@ -1,5 +1,6 @@
 import entity.Address;
 import entity.Customer;
+import facade.CustomerFacade;
 import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
@@ -11,6 +12,7 @@ public class Tester {
     public static void main(String[] args) {
         EntityManagerFactory entityManagerFactory = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.DROP_AND_CREATE);
         EntityManager entityManager = entityManagerFactory.createEntityManager();
+        CustomerFacade customerFacade = CustomerFacade.getCustomerFacade(entityManagerFactory);
 
         Address address = new Address("Vejen", "Copenhagen");
         Address address2 = new Address("Vejen2", "Copenhagen");
@@ -36,19 +38,9 @@ public class Tester {
         customer.addAddress(address2);
         customer2.addAddress(address3);
         customer2.addAddress(address4);
+        
+        customerFacade.create(customer);
+        customerFacade.create(customer2);
 
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(address);
-            entityManager.persist(address2);
-            entityManager.persist(customer);
-            entityManager.persist(customer2);
-            entityManager.getTransaction().commit();
-        } catch (Exception e) {
-            entityManager.getTransaction().rollback();
-            e.printStackTrace();
-        } finally {
-            entityManager.close();
-        }
     }
 }

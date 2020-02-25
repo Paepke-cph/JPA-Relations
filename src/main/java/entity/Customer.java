@@ -63,13 +63,7 @@ public class Customer implements Serializable {
     }
 
     public String getHobbies() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for(int i = 0; i < hobbies.size(); i++) {
-            stringBuilder.append(hobbies);
-            if(i != hobbies.size()-1)
-                stringBuilder.append(",");
-        }
-        return stringBuilder.toString();
+        return String.join(",", hobbies);
     }
 
     public void addPhone(String phoneNumber, String phoneDescription) { phones.put(phoneNumber,phoneDescription);}

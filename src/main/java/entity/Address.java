@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
-
 @Entity
 @Table(name = "Address")
 @NamedQuery(name = "Address.deleteAllRows", query = "DELETE FROM Address")
@@ -25,8 +24,8 @@ public class Address implements Serializable {
     @Column(name = "address_city")
     private String city;
 
-    @ManyToMany(mappedBy = "addresses")
-    private List<Customer> customers = new ArrayList();
+    @ManyToMany(mappedBy = "addresses", cascade = CascadeType.PERSIST)
+    private List<Customer> customers = new ArrayList<>();
 
     public Address() {}
 
