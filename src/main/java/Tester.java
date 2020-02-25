@@ -5,12 +5,11 @@ import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Tester {
     public static void main(String[] args) {
-        EntityManagerFactory entityManagerFactory = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.DROP_AND_CREATE);
+        EntityManagerFactory entityManagerFactory = EMF_Creator
+                .createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.DROP_AND_CREATE);
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         CustomerFacade customerFacade = CustomerFacade.getCustomerFacade(entityManagerFactory);
 
@@ -38,7 +37,7 @@ public class Tester {
         customer.addAddress(address2);
         customer2.addAddress(address3);
         customer2.addAddress(address4);
-        
+
         customerFacade.create(customer);
         customerFacade.create(customer2);
 
